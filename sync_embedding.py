@@ -51,7 +51,7 @@ def load_or_create_index(index_file, existing_embeddings, embedding_dimension, c
     return index
 
 
-def update_embeddings(folder="test", vectordb = "vectorstore", new_files=[]):
+def update_embeddings(folder="test", vectordb="vectorstore", new_files=[]):
 
     if not os.path.exists(vectordb):
         os.makedirs(vectordb)
@@ -71,7 +71,7 @@ def update_embeddings(folder="test", vectordb = "vectorstore", new_files=[]):
 
     # loop through
     for filepath in tqdm.tqdm(files_to_process):
-        if filepath.endswith(".txt"):
+        if os.path.exists(filepath) and filepath.endswith(".txt"):
             chunks = read_and_chunk_file(filepath)
             for i, chunk in enumerate(chunks):
                 embedding = model.encode(chunk, convert_to_tensor=True)
